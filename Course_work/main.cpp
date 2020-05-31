@@ -46,6 +46,7 @@ int main(int argc, const char * argv[]) {
 }
 */
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -53,9 +54,11 @@ string encryptDecrypt(string toEncrypt) {
     
     char key[] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N'}; //Any chars will work, in an array of any size
     string output = toEncrypt;
+   
     
     for (int i = 0; i < toEncrypt.size(); i++)
         output[i] = toEncrypt[i] ^ key[i % (sizeof(key) / sizeof(char))];
+    
     
     return output;
 }
@@ -63,7 +66,26 @@ string encryptDecrypt(string toEncrypt) {
 int main(int argc, const char * argv[])
 {
     setlocale(LC_ALL, "");
-    string encrypted = encryptDecrypt("Gamers will not order the world");
+    string toEncrypt;
+    cout << "Enter the text u wanna encrypt: "<< endl;
+    getline(cin, toEncrypt );
+    
+    cout << "Choose the mode of encrypting: \n 1. Modern way \n 2. Vernam \n 3.Gilla \n 4.Gambetta \n 5."<< endl;
+    int mode;
+    cin >> mode;
+    switch (mode)
+    {
+        case 1:
+            
+            cout << "1";
+            break;
+        case 2:
+            cout << "2";
+        default: cout << "Something happened..."<< endl;
+            break;
+    }
+    
+    string encrypted = encryptDecrypt(toEncrypt);
     cout << "Encrypted:" << encrypted << "\n";
     
     string decrypted = encryptDecrypt(encrypted);
