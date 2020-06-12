@@ -1,50 +1,3 @@
-/*#include <iostream>
-#include <fstream>
-#include <string>
-using namespace std;
-
-int main(int argc, const char * argv[]) {
-
-    ofstream fout;
-    fout.open("text.txt");
-
-
-    if (!fout.is_open())
-    {
-        cout << "Oops..something is wrong" << endl;
-    }
-    else
-    {
-        fout << "Again against the world";
-    }
-    fout.close();
-    ifstream fin;
-    fin.open("text.txt");
-
-    if (!fin.is_open())
-    {
-        cout << "can't be opened" << endl;
-    }
-    else
-    {
-        string strd;
-        //char strd[50];
-        while (fin >> strd)
-        {
-            if (strd[0] == 'a' || strd[0] == 'A')
-            {
-                cout << strd << endl;
-            }
-        }
-        
-    }
-    
-    fin.close();
-
-    return 0;
-
-}
-*/
 #include <iostream>
 #include <ctime>
 #include <string>
@@ -55,9 +8,10 @@ string secondMethod(string toEncrypt){
     cout << "Requirements about using this ciepher: \n 1.It can't be too long text \n 2.Write the key without spaces \n 3.The key can't be shorter than text \n";
 string C,D = "";
            string A = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ,.()1234567890!;:-? ";
-    //
+    
            cout << "Enter the key: ";
            cin >> C;
+    
     
     cout << "Decrypted: " << endl;
            string B = toEncrypt;
@@ -87,8 +41,6 @@ string C,D = "";
                }
                
            }
-               
-           
            cout << D << endl;
            for (int k=0; k<b ; k++)
            {
@@ -112,6 +64,8 @@ string C,D = "";
                B[u] = A[u];
            }
            }
+    
+    
     cout << "Encrypted: " << endl;
     return B;
     
@@ -136,66 +90,64 @@ int main(int argc, const char * argv[])
     string toEncrypt;
     cout << "Enter the text u wanna encrypt: "<< endl;
     
-    
-    ifstream fin;
+    cin >> toEncrypt;
+    /*ifstream fin;
     fin.open("text.txt");
-    getline(cin, toEncrypt );
+    getline(cin, toEncrypt );*/
     
     cout << "Choose the mode of encrypting: \n 1.Modern way \n 2.Vizhener \n 3.Gilla \n 4.Gambetta \n 5.Vertical-horizont \n 6.Wodsvord "<< endl;
     int mode;
     cin >> mode;
-     ofstream fout;
+  
     string start,end;
-    switch (mode)
-    {
-            
-            
-            
+    
+   
+    
+    switch (mode) {
+        
         case 1:
+        {
             cout << "You chose 1 mode: \n";
             start = encryptDecrypt(toEncrypt);
             end = encryptDecrypt(encryptDecrypt(toEncrypt));
-            cout << "Encrypted: " << start;
-            cout << "Decrypted: " << end;
-              // cout << "Encrypted:" << encryptDecrypt(toEncrypt)<< "\n";
-               //cout << "Decrypted:" << encryptDecrypt(encryptDecrypt(toEncrypt)) << "\n";
-           
-            fout.open("text.txt", std::ios::app);
+            
+            ofstream fout;
+            fout.open("text.txt");
+
+
             if (!fout.is_open())
             {
                 cout << "Oops..something is wrong" << endl;
             }
             else
             {
-                fout << start << " " << end;
+                fout << start;
+                
             }
+            fout.close();
+            cout << "Encrypted: " << end << endl;
+            cout << "Decrypted: " << start << endl;
             
-            
+              // cout << "Encrypted:" << encryptDecrypt(toEncrypt)<< "\n";
+               //cout << "Decrypted:" << encryptDecrypt(encryptDecrypt(toEncrypt)) << "\n";
+           
                break;
+        }
         case 2:
+        {
             
             cout << "You chose 2 mode: \n";
             cout << secondMethod(toEncrypt) << "\n";
             break;
-            
+        }
         case 3:
+        {
             cout << "You chose 3 mode: \n";
         default: cout << "Something happened..."<< endl;
             break;
+        }
     }
     
    
-    
-  //  fout.close();
-  //  ifstream fin;
-    fin.open("text.txt");
-
-    if (!fin.is_open())
-    {
-        cout << "can't be opened" << endl;
-    }
-    
-     fin.close();
-    
     return 0;
 }
