@@ -94,7 +94,7 @@ string encryptDecrypt(string toEncrypt) {
 int main(int argc, const char * argv[])
 {
     //setlocale(LC_ALL, "");
-    string toEncrypt;
+    string toEncrypt;  
     cout << "Enter the text u wanna encrypt: "<< endl;
     
     getline(cin, toEncrypt);
