@@ -1,0 +1,2 @@
+Your encrypted text: 
+Your decrypted text: 
