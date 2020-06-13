@@ -191,7 +191,8 @@ int main(int argc, const char * argv[])
                 cout << endl;
                 fin.close(); // закрываем файл
               }
-              
+            
+            
               symbol_amount = file_length;
               ciphertext = new char[symbol_amount];
               cout << endl; cout << "Enter the key: ";
