@@ -191,8 +191,12 @@ int main(int argc, const char * argv[])
                 cout << endl;
                 fin.close(); // закрываем файл
               }
+<<<<<<< HEAD
             
             
+=======
+              
+>>>>>>> 1cac51bb957693143b1136c95ecd9b328b4730ff
               symbol_amount = file_length;
               ciphertext = new char[symbol_amount];
               cout << endl; cout << "Enter the key: ";
