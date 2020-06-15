@@ -13,6 +13,7 @@ string C,D = "";
            cin >> C;
     
     cout << "Decrypted: " << endl;
+    auto begin1 = chrono::high_resolution_clock::now();
            string B = toEncrypt;
            int *F = new int [B.size()];
            int *G = new int [B.size()];
@@ -63,9 +64,10 @@ string C,D = "";
                B[u] = A[u];
            }
            }
-    
+     auto ending1 =chrono::high_resolution_clock::now();
     
     cout << "Encrypted: " << toEncrypt << endl;
+     cout << "Потраченное время: "<< chrono::duration_cast<chrono::nanoseconds>(ending1 - begin1).count()<< " ns"<< endl;
     return B;
     
 }
@@ -104,9 +106,10 @@ int main(int argc, const char * argv[])
         case 1:
         {
             cout << "You chose 1 mode: \n";
+            auto begin = chrono::high_resolution_clock::now();
             start = encryptDecrypt(toEncrypt);
+            auto ending =chrono::high_resolution_clock::now();
             end = encryptDecrypt(encryptDecrypt(toEncrypt));
-            
             ofstream fout;
             fout.open("Input.txt");
 
@@ -124,7 +127,7 @@ int main(int argc, const char * argv[])
             fout.close();
             cout << "Encrypted: " << end << endl;
             cout << "Decrypted: " << start << endl;
-            
+            cout << "Потраченное время: "<< chrono::duration_cast<chrono::nanoseconds>(ending - begin).count()<< " ns"<< endl;
               // cout << "Encrypted:" << encryptDecrypt(toEncrypt)<< "\n";
                //cout << "Decrypted:" << encryptDecrypt(encryptDecrypt(toEncrypt)) << "\n";
            
@@ -134,8 +137,9 @@ int main(int argc, const char * argv[])
         {
             string start2;
             cout << "You chose 2 mode: \n";
-            start2 = secondMethod(toEncrypt);
             
+            start2 = secondMethod(toEncrypt);
+           
             
             ofstream fout;
             fout.open("Input.txt");
@@ -152,7 +156,7 @@ int main(int argc, const char * argv[])
             }
             fout.close();
             cout << "Encrypted: "<< start2 << endl;
-            
+           
             break;
         }
         case 3:
@@ -187,6 +191,9 @@ int main(int argc, const char * argv[])
                 source_text = new char[file_length];
                 fin.getline(source_text, file_length);
                 cout << endl << "Text: " << endl;
+                  
+                  
+                  
                 for (int i = 0; i < file_length; i++) {
                   cout << source_text[i];
                 }
@@ -199,6 +206,7 @@ int main(int argc, const char * argv[])
               ciphertext = new char[symbol_amount];
               cout << endl; cout << "Enter the key: ";
               cin >> string_amount;
+            auto begin2 = chrono::high_resolution_clock::now();
               colum_amount = ((symbol_amount - 1) / string_amount) + 1;
               cout << "Number of characters in the message: " << symbol_amount << endl;
               cout << "Number of lines: " << string_amount << endl;
@@ -206,15 +214,21 @@ int main(int argc, const char * argv[])
               for (int i = 0; i < symbol_amount; i++) {
                 index = string_amount*(i%colum_amount) + (i / colum_amount);
                 ciphertext[index] = source_text[i];
+                  
               }
               
               for (int i = 0; i < symbol_amount; i++)
                 cout << ciphertext[i];
               cout << endl;
-              
+              auto ending2 = chrono::high_resolution_clock::now();
+            cout << "Потраченное время: "<< chrono::duration_cast<chrono::nanoseconds>(ending2 - begin2).count()<< " ns"<< endl;
               delete []ciphertext;
               delete []source_text;
+            
+            
             }
+            
+            
             break;
         
         default:
