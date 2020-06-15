@@ -226,6 +226,23 @@ int main(int argc, const char * argv[])
               cout << endl;
               auto ending2 = chrono::high_resolution_clock::now();
             cout << "Потраченное время: "<< chrono::duration_cast<chrono::nanoseconds>(ending2 - begin2).count()<< " ns"<< endl;
+            
+            
+            ofstream fout;
+            fout.open("Input.txt");
+
+
+            if (!fout.is_open())
+            {
+                cout << "Oops..something is wrong" << endl;
+            }
+            else
+            {
+                fout << "Your encrypted text: " << ciphertext << endl;
+                
+            }
+            fout.close();
+            
               delete []ciphertext;
               delete []source_text;
             
