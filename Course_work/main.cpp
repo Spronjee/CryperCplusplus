@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <chrono>
+#include <vector>
 
 using namespace std;
 
@@ -95,7 +96,7 @@ int main(int argc, const char * argv[])
     
     getline(cin, toEncrypt);
     
-    cout << "Choose the mode of encrypting: \n 1.Gambet \n 2.Vizhener \n 3.Gilla \n 4.Wodsvord ?"<< endl;
+    cout << "Choose the mode of encrypting: \n 1.Gambet \n 2.Vizhener \n 3.Gilla \n 4.Vernam"<< endl;
     int mode;
     cin >> mode;
   
@@ -231,6 +232,190 @@ int main(int argc, const char * argv[])
             
             break;
         
+        case 4:
+        {
+            
+            vector<char>Case = { ' ','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+            
+            vector<char>Symbol = { ' ', '+','!','@','#','$','%','^','&','*','[',']',')','(','=','`',':',';','{','}','.',',','<','>','"','?','/','\''};
+
+               
+            vector< vector< vector<char>>>CryptoTable(Case.size()/*номера букв*/, vector<vector<char>>(Case.size()/*Номера ключа*/, vector<char>(2)));
+
+               
+            cout << "\t" << "\t" << "   CryptoTable" << "\n" << "\n";
+            for (int f = 0; f < Case.size(); f++) {
+
+                for (int g = 0; g < Case.size(); g++) {
+                 
+                    if (f == 0) {
+
+                        for (int i = 0; i < Case.size(); i++) {
+
+                            CryptoTable[f][i][0] = Case[i];
+                        }
+                    }
+                    if (g == 0) {
+
+                        CryptoTable[f][g][0] = Case[f];
+                 
+                    }else {
+
+                        int AddSymbol = g;
+                        AddSymbol = g + f;
+                        if (AddSymbol > 26) {
+
+                            AddSymbol = AddSymbol - 26;
+                            CryptoTable[f][g][0] = Symbol[AddSymbol];
+                        }
+                        else {
+
+                            CryptoTable[f][g][0] = Symbol[AddSymbol];
+
+                        }
+                    }
+                }
+            }CryptoTable[0][26][0] = Case[26];//это небольшой костыль c Z
+
+            
+            for (int f = 0; f < Case.size();f++) {
+
+                for (int g = 0; g < Case.size(); g++) {
+
+                    cout << CryptoTable[f][g][0];
+
+                }
+                cout << "\n";
+            }
+            cout << "\n";
+
+            
+            cout << "Enter text: ";
+            vector<string>String(1);
+
+            for (int i = 0; i < 1; i++) {
+
+                cin >> String[i];
+
+            }
+
+
+            cout << "Enter key: ";
+            vector<string>Key(1);
+            for (int i = 0; i < 1; i++) {
+
+                cin >> Key[i];
+
+            }
+
+      
+            if (Key[0].size() < String[0].size()) {
+                int different = String[0].size() - Key[0].size();
+                for (int f = 0; f < Key.size(); f++) {
+                    for (int i = 0; i < different; i++) {
+
+                        Key[f].push_back(Key[f][i]);
+             
+                    }
+                }
+                cout << "Key transformed: ";
+                for (int i = 0; i < Key.size(); i++) {
+
+                    cout << Key[i];
+
+                }
+            }
+
+     
+            if (Key[0].size() > String[0].size()) {
+                int different = Key[0].size() - String[0].size();
+                for (int i = 0; i < different; i++) {
+
+                    Key[0].pop_back();
+
+                }
+                cout << "Key transformed: ";
+                for (int i = 0; i < Key.size(); i++) {
+
+                    cout << Key[i];
+                }
+            }
+
+            cout << "\n";
+
+            auto begin2 = chrono::high_resolution_clock::now();
+            for (int a = 0; a < String.size();a++) {
+
+                for (int s = 0; s < String[a].size(); s++) {
+
+                    for (int d = 0; d < CryptoTable[0].size(); d++) {
+
+                        if (String[a][s] == CryptoTable[0][d][0]) {
+
+                            for (int h = 0; h < CryptoTable[0].size(); h++) {
+
+                                if (Key[a][s] == CryptoTable[h][0][0]) {
+
+                                    String[a][s] = CryptoTable[h][d][0];
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+          
+            cout << "\n" << "Your encrypted text: ";
+            for (int i = 0; i < String.size(); i++) {
+
+                std::cout << String[i]<< endl;
+
+            }
+            auto ending2 = chrono::high_resolution_clock::now();
+            cout << "Потраченное время: "<< chrono::duration_cast<chrono::nanoseconds>(ending2 - begin2).count()<< " ns"<< endl;
+            
+            cout << "\n" << "Enter key for decrypt: ";
+            for (int i = 0; i < 1; i++) {
+
+                cin >> Key[i];
+
+            }
+
+            cout << "\n";
+
+          
+            for (int a = 0; a < Key.size(); a++) {
+
+                for (int s = 0; s < Key[a].size(); s++) {
+
+                    for (int d = 0; d < CryptoTable[0].size();d++) {
+
+                        if (Key[a][s] == CryptoTable[d][0][0]) {
+
+                            for (int h = 0; h < CryptoTable[0].size(); h++) {
+
+                                if (String[a][s] == CryptoTable[d][h][0]) {
+
+                                    String[a][s] = CryptoTable[0][h][0];
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+           
+            std::cout << "\n" << "Your decrypted text: ";
+            for (int i = 0; i < String.size(); i++) {
+             
+                std::cout << String[i]<<endl;
+             
+            }
+            
+        }
+            break;
         default:
         {
             cout << "Something happened..."<< endl;
@@ -238,6 +423,5 @@ int main(int argc, const char * argv[])
         }
     }
     
-   
     return 0;
 }
