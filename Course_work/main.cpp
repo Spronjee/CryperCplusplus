@@ -1,14 +1,8 @@
 #include <iostream>
-#include <ctime>
-#include <string>
 #include <fstream>
-#include <math.h>
-#include <stdio.h>
-
+#include <chrono>
 
 using namespace std;
-
-
 
 string secondMethod(string toEncrypt){
     cout << "Requirements about using this ciepher: \n 1.It can't be too long text \n 2.Write the key without spaces \n 3.The key can't be shorter than text \n";
@@ -163,45 +157,49 @@ int main(int argc, const char * argv[])
         }
         case 3:
         {
+            ofstream ffout;
+            ffout.open("messege.txt");
+            
+            if (ffout.is_open())
+            {
+                ffout << toEncrypt;
+            }
+            ffout.close();
             cout << "You chose 3 mode: \n";
             char *source_text;
-              char *ciphertext; // "матрица" Сциталла
-              int symbol_amount; // кол-во символов в сообщении
-              int string_amount; // кол-во строк
-              int colum_amount; // кол-во столбцов
-              int index; // индекс буквы зашифрованного сообщения
+              char *ciphertext;
+              int symbol_amount;
+              int string_amount;
+              int colum_amount;
+              int index;
               
-            int file_length;// сколько символов считать из файла
+            int file_length;
               ifstream fin("messege.txt");
             
               if (!fin.is_open())
-              {// если файл не открыт
-                cout << "can't be opened \n"; // сообщить об этом
+              {
+                cout << "can't be opened \n";
               }
               else {
                
                 cout << "How many characters to read from a file? " << endl;
                 cin >> file_length;
                 source_text = new char[file_length];
-                fin.getline(source_text, file_length); // считали строку из файла
-                cout << endl << "Message: " << endl;
+                fin.getline(source_text, file_length);
+                cout << endl << "Text: " << endl;
                 for (int i = 0; i < file_length; i++) {
                   cout << source_text[i];
                 }
                 cout << endl;
-                fin.close(); // закрываем файл
+                fin.close();
               }
-<<<<<<< HEAD
+
             
-            
-=======
-              
->>>>>>> 1cac51bb957693143b1136c95ecd9b328b4730ff
               symbol_amount = file_length;
               ciphertext = new char[symbol_amount];
               cout << endl; cout << "Enter the key: ";
               cin >> string_amount;
-              colum_amount = ((symbol_amount - 1) / string_amount) + 1; // вычислили кол-во столбцов
+              colum_amount = ((symbol_amount - 1) / string_amount) + 1;
               cout << "Number of characters in the message: " << symbol_amount << endl;
               cout << "Number of lines: " << string_amount << endl;
               cout << "Number of columns: " << colum_amount << endl;
