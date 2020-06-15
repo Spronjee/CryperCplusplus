@@ -106,6 +106,7 @@ int main(int argc, const char * argv[])
         
         case 1:
         {
+            
             cout << "You chose 1 mode: \n";
             auto begin = chrono::high_resolution_clock::now();
             start = encryptDecrypt(toEncrypt);
@@ -136,6 +137,7 @@ int main(int argc, const char * argv[])
         }
         case 2:
         {
+               
             string start2;
             cout << "You chose 2 mode: \n";
             
@@ -162,6 +164,7 @@ int main(int argc, const char * argv[])
         }
         case 3:
         {
+           
             ofstream ffout;
             ffout.open("messege.txt");
             
@@ -298,7 +301,6 @@ int main(int argc, const char * argv[])
                 cin >> String[i];
 
             }
-
 
             cout << "Enter key: ";
             vector<string>Key(1);

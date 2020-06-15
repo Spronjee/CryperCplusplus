@@ -1,2 +1,1 @@
-Your encrypted text: 
-Your decrypted text: 
+Your encrypted text: abcdefghi
